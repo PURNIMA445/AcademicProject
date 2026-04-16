@@ -117,3 +117,8 @@ Start server:
 ```bash
 python manage.py runserver
 ```
+
+## Project Details
+
+This is a college-level academic project developed by a team of 4 members as part of the curriculum.
+The project was built to demonstrate full-stack web development using Django and relational database design.
