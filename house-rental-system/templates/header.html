@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/header.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1 class="logo"><a href="{% url 'landingpage' %}">House <span>Rental</span> System</a></h1>
+        <div class="menu-wrapper">
+            <button class="menu-btn" id="menu-btn">Menu ▼</button>
+            <nav class="nav-bar" id="nav-bar">
+                <a href="/home/" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+
+<a href="{% url 'aboutus' %}" class="{% if request.resolver_match.url_name == 'aboutus' %}active{% endif %}">About</a>
+
+<a href="{% url 'service' %}" class="{% if request.resolver_match.url_name == 'service' %}active{% endif %}">Services</a>
+ </nav>
+        </div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="login-link">Logout</a>
+        {% else %}
+            <a href="/login/" class="login-link {% if request.path == '/login/' %}active{% endif %}">Login</a>
+        {% endif %}
+    </header>
+
+    <script src="/static/script/header.js"></script>
+</body>
+</html>

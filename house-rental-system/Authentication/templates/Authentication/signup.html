@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signup</title>
+  <link rel="stylesheet" href="/static/css/signup.css">
+</head>
+<body>
+  {% include "header.html" %}
+
+  <div class="main">
+    <div class="signup-container">
+      <p class="signup-eyebrow">House Rental System</p>
+      <h2>Create an Account</h2>
+      <p class="signup-subtitle">Join as a tenant or landlord</p>
+
+      <form method="post" class="signup-form">
+        {% csrf_token %}
+
+        <div class="name-row">
+          <div class="field-group">
+            <label>First Name</label>
+            <input type="text" name="firstname" placeholder="First Name" value="{{ request.POST.firstname }}" required>
+          </div>
+          <div class="field-group">
+            <label>Last Name</label>
+            <input type="text" name="lastname" placeholder="Last Name" value="{{ request.POST.lastname }}" required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Username</label>
+          <input type="text" name="username" placeholder="Username" value="{{ request.POST.username }}" required>
+        </div>
+        {% for message in messages %}
+          {% if "Username" in message.message %}
+            <p class="field-error">{{ message }}</p>
+          {% endif %}
+        {% endfor %}
+
+        <div class="field-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="Email" value="{{ request.POST.email }}" required>
+        </div>
+        {% for message in messages %}
+          {% if "Email" in message.message %}
+            <p class="field-error">{{ message }}</p>
+          {% endif %}
+        {% endfor %}
+
+        <div class="field-group">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="••••••••" required>
+        </div>
+        {% for message in messages %}
+          {% if "Password" in message.message %}
+            <p class="field-error">{{ message }}</p>
+          {% endif %}
+        {% endfor %}
+
+        <div class="field-group">
+          <label>Phone Number</label>
+          <input type="text" name="phone" placeholder="+977-98XXXXXXXX" value="{{ request.POST.phone }}" required>
+        </div>
+
+        <div class="field-group">
+          <label>Register as</label>
+          <div class="select-wrapper">
+            <select name="role" id="role" required>
+              <option value="" disabled {% if not request.POST.role %}selected{% endif %}>Select role</option>
+              <option value="tenant" {% if request.POST.role == 'tenant' %}selected{% endif %}>Tenant</option>
+              <option value="landlord" {% if request.POST.role == 'landlord' %}selected{% endif %}>Landlord</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-signup">Sign Up</button>
+
+        <div class="divider"><span>or</span></div>
+
+        <p class="switch-auth">
+          Already have an account? <a href="{% url 'login' %}">Login</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/signup.js"></script>
+</body>
+</html>

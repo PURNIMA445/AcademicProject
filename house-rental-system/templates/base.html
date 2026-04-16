@@ -1,0 +1,37 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}House Rental System{% endblock %}</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Global stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  {% include "header.html" %}
+  {% include "sidebar.html" %}
+
+  <div class="content">
+    {% block content %}{% endblock %}
+  </div>
+
+  {% include 'footer.html' %}
+
+  {% block extra_js %}
+    <script src="{% static 'script/sidebar.js' %}"></script>
+  {% endblock %}
+</body>
+</html>

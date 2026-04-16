@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Rentals{% endblock %}
+
+{% block extra_css %}
+<style>
+  body { background-color: #f4f4f4; font-family: 'DM Sans', sans-serif; }
+
+  .main {
+    margin-top: 80px;
+    margin-left: 80px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+  }
+  body.sidebar-open .main { margin-left: 230px; }
+
+  .main h1 { text-align: center; margin-bottom: 30px; color: #333; }
+
+  table {
+    width: 90%; margin: 0 auto; border-collapse: collapse;
+    background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  thead { background-color: #1c2b4a; color: white; }
+  th, td { padding: 12px 15px; border: 1px solid #ddd; text-align: center; }
+  tbody tr:nth-child(even) { background-color: #f9f9f9; }
+
+  .btn.cancel-btn {
+    color: white; background-color: red; cursor: pointer;
+    border: none; padding: 5px 10px; border-radius: 5px;
+  }
+  .no-bookings { text-align: center; padding: 20px; color: #555; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+  <h1>My Rental Bookings</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Property ID</th>
+        <th>Requested Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+        <th>View</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for booking in bookings %}
+        <tr>
+          <td>{{ booking.property.id }}</td>
+          <td>{{ booking.requested_at|date:"M d, Y H:i" }}</td>
+          <td>{{ booking.status }}</td>
+          <td>
+            {% if booking.status == 'Pending' %}
+              <form method="POST" action="{% url 'booking_cancel' booking.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn cancel-btn">Cancel</button>
+              </form>
+            {% elif booking.status == 'Accepted' %}
+              <a href="{% url 'view_landlord_info' booking.property.landlord.id %}"
+                 style="background-color:#4CAF50; color:white; padding:6px 12px; border-radius:4px; text-decoration:none;">
+                View Landlord
+              </a>
+            {% else %}
+              <span style="color:gray;">No Actions</span>
+            {% endif %}
+          </td>
+          <td>
+            <a style="text-decoration:none;" href="{% url 'property_detail' booking.property.pk %}">
+              View your rental
+            </a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5" class="no-bookings">No bookings found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

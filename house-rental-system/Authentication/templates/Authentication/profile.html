@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block extra_css %}
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'DM Sans', sans-serif; }
+  body { background: #f0f4ff; color: #1c2b4a; }
+
+  .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 6rem 1rem 2rem;
+    margin-left: 60px;
+    transition: margin-left 0.3s ease;
+  }
+  body.sidebar-open .main { margin-left: 210px; }
+
+  .profile-card {
+    background: #fff;
+    border: 1.5px solid #e8eaf0;
+    border-radius: 14px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 10px 35px rgba(28,43,74,0.12);
+    transition: 0.25s ease;
+  }
+  .profile-card:hover { transform: translateY(-4px); border-color: #f5a623; }
+
+  .profile-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem; gap: 0.6rem; }
+
+  .avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #f5a623;
+  }
+  .profile-eyebrow { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: #f5a623; }
+  .profile-card h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; color: #1c2b4a; }
+  .role-badge {
+    display: inline-block; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #f5a623; background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 20px; padding: 3px 12px;
+  }
+  .divider { height: 1px; background: #e8eaf0; margin-bottom: 1.5rem; }
+
+  .info-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid #f0f2f8; }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: #8892a8; }
+  .info-value { font-size: 0.875rem; color: #1c2b4a; font-weight: 500; text-align: right; }
+
+  .button-group { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; gap: 0.75rem; }
+
+  .btn-back {
+    padding: 9px 18px; background: #fff; color: #1c2b4a;
+    border: 1.5px solid #e8eaf0; border-radius: 8px;
+    font-size: 0.8rem; font-weight: 500; text-decoration: none; transition: 0.2s ease;
+  }
+  .btn-back:hover { border-color: #f5a623; color: #f5a623; transform: translateY(-2px); }
+
+  .btn-delete {
+    padding: 9px 18px; background: #fff; color: #e05c5c;
+    border: 1.5px solid rgba(224,92,92,0.3); border-radius: 8px;
+    font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s ease;
+  }
+  .btn-delete:hover { background: rgba(224,92,92,0.08); border-color: rgba(224,92,92,0.5); transform: translateY(-2px); }
+
+  @media (max-width: 750px) {
+    .main { margin-left: 0 !important; padding: 5rem 1rem 2rem; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+  <div class="profile-card">
+    <div class="profile-header">
+      <div class="avatar">{{ user.first_name|first|upper }}{{ user.last_name|first|upper }}</div>
+      <p class="profile-eyebrow">House Rental System</p>
+      <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+      <span class="role-badge">{{ profile.role }}</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="profile-info">
+      <div class="info-row">
+        <span class="info-label">First Name</span>
+        <span class="info-value">{{ user.first_name }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Last Name</span>
+        <span class="info-value">{{ user.last_name }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Username</span>
+        <span class="info-value">{{ user.username }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Email</span>
+        <span class="info-value">{{ user.email }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Phone</span>
+        <span class="info-value">{{ profile.phone_num }}</span>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <a href="{% url 'home' %}" class="btn-back">← Back to Dashboard</a>
+      <form method="POST" action="{% url 'delete_profile' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn-delete"
+          onclick="return confirm('Are you sure you want to delete your profile?')">
+          Delete Profile
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

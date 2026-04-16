@@ -1,0 +1,107 @@
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 64px;  /* Adjust to fit below the header */
+  left: 0;
+  width: 60px;  /* Default collapsed width */
+  height: calc(100vh - 64px);  /* Full height of the screen minus header height */
+  background: #1c2b4a;
+  color: #fff;
+  padding-top: 56px;  /* Space for top content, adjust based on your header */
+  transition: width 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  width: 210px;  /* Expanded width when open */
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+  background-color: #f5a623;
+}
+
+/* Adjust icon size */
+.sidebar .icon {
+  font-size: 1.2rem;  /* Reduced icon size */
+  min-width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.sidebar .label {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.sidebar.open .label {
+  opacity: 1;
+}
+
+.section-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 6px 16px;
+}
+
+body.sidebar-open .sidebar {
+  width: 210px;
+  box-shadow: 4px 0 20px rgba(28, 43, 74, 0.2);
+}
+
+/* Content adjustments for sidebar open state */
+.content {
+  margin-left: 60px;
+  margin-top: 64px;
+  padding: 20px;
+  transition: 0.3s ease;
+}
+
+body.sidebar-open .content {
+  margin-left: 210px;
+}
+
+/* Hamburger Button */
+.hamburger {
+  position: fixed;
+  top: 70px;  /* Adjust as per header height */
+  left: 12px;
+  font-size: 1.2rem; /* Adjust hamburger size */
+  z-index: 1001;
+  background: #1c2b4a;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.2s ease;
+}
+
+.hamburger:hover {
+  color: #f5a623;
+  border-color: rgba(245, 166, 35, 0.5);
+}
+
+/* Mobile */
+@media (max-width: 750px) {
+  .sidebar {
+    width: 0;
+  }
+
+  .sidebar.open {
+    width: 200px;
+  }
+
+  .sidebar a {
+    font-size: 0.9rem;
+  }
+}

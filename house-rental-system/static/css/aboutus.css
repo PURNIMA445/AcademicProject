@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+}
+
+body {
+  background: #657399;
+  min-height: 100vh;
+  color: #1c2b4a;
+}
+
+/* MAIN WRAPPER */
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6rem 1rem 3rem;
+}
+
+/* CARD (upgraded to match homepage cards) */
+.container {
+  width: 100%;
+  max-width: 800px;
+  background: #fff;
+  border: 1.5px solid #e8eaf0;
+  border-radius: 14px;
+  padding: 2.8rem 2.2rem;
+  box-shadow: 0 10px 35px rgba(28, 43, 74, 0.12);
+  transition: all 0.25s ease;
+}
+
+.container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 50px rgba(28, 43, 74, 0.16);
+  border-color: #f5a623;
+}
+
+/* TITLE (match homepage Playfair style) */
+.container h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.1rem;
+  color: #1c2b4a;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* replace ugly underline with soft accent like homepage */
+.container h1::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 3px;
+  background: linear-gradient(90deg, #f5a623, rgba(245, 166, 35, 0.3));
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+/* TEXT */
+.container p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+
+/* SECTION TITLE (make it match homepage section headers) */
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1c2b4a;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-left: 12px;
+  border-left: 4px solid #f5a623;
+  position: relative;
+}
+
+/* LIST ITEMS (convert into soft “cards” like homepage cards) */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  background: #f8f9fc;
+  margin-bottom: 1rem;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1.5px solid #e8eaf0;
+  color: #4b5563;
+  transition: all 0.2s ease;
+}
+
+/* hover like homepage property cards */
+li:hover {
+  transform: translateY(-3px);
+  border-color: #f5a623;
+  box-shadow: 0 10px 25px rgba(28, 43, 74, 0.08);
+}
+
+/* highlight strong text */
+li strong {
+  color: #1c2b4a;
+}
